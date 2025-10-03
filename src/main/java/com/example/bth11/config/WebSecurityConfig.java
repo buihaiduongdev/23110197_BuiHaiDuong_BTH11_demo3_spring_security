@@ -65,13 +65,19 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/")
-						.hasAnyAuthority("USER", "ADMIN", "EDITOR", "CREATOR").requestMatchers("/signup").permitAll()
-						.requestMatchers("/new").hasAnyAuthority("ADMIN", "CREATOR").requestMatchers("/edit/**")
-						.hasAnyAuthority("ADMIN", "EDITOR").requestMatchers("/delete/**")
-						.hasAnyAuthority("ADMIN", "EDITOR").requestMatchers(HttpMethod.GET, "/api/**").permitAll())
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/", "/api/auth/**")
+						.permitAll()
+						.requestMatchers("/new")
+						.hasAnyAuthority("ADMIN", "CREATOR")
+						.requestMatchers("/edit/**")
+						.hasAnyAuthority("ADMIN", "EDITOR")
+						.requestMatchers("/delete/**")
+						.hasAnyAuthority("ADMIN", "EDITOR")
+						.anyRequest().authenticated()
+				)
 				.formLogin(login -> login.loginPage("/login").permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").permitAll())
-				.exceptionHandling(handling -> handling.accessDeniedPage("/403")).build();
+				.exceptionHandling(handling -> handling.accessDeniedPage("/403"))
+				.build();
 	}
 }
