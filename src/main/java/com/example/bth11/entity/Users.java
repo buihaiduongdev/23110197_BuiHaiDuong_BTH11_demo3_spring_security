@@ -32,7 +32,8 @@ public class Users {
 
 	@Column(name = "password")
 	private String password;
-
+	@Column(name = "email", length = 50, columnDefinition = "nvarchar(50)", nullable = false)
+	private String email;
 	@Column(name = "enabled")
 	private Boolean enabled;
 

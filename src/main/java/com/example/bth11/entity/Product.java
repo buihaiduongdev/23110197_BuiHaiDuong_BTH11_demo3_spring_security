@@ -1,0 +1,32 @@
+package com.example.bth11.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "Products")
+public class Product {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(columnDefinition = "nvarchar(255)")
+	private int id;
+
+	@Column(columnDefinition = "nvarchar(255)")
+	private String name;
+
+	@Column(columnDefinition = "nvarchar(255)")
+	private String brand;
+
+	private String madein;
+	private float price;
+}
