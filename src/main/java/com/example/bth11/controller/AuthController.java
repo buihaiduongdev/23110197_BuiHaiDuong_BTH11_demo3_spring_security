@@ -66,12 +66,12 @@ public class AuthController {
 		user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 		user.setEnabled(true);
 
-		Role role = roleRepository.findByName("USER")
-				.orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
+		Role role = roleRepository.findByName("ADMIN")
+				.orElseThrow(() -> new RuntimeException("Error: Role ADMIN is not found."));
 		user.setRoles(Collections.singleton(role));
 
 		userRepository.save(user);
 
-		return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+		return new ResponseEntity<>("User(Admin) registered successfully", HttpStatus.OK);
 	}
 }

@@ -18,12 +18,13 @@ public class Application {
 	@Bean
 	CommandLineRunner run(RoleRepository roleRepository) {
 		return args -> {
-			if (roleRepository.findByName("USER").isEmpty()) {
-				roleRepository.save(new Role(null, "USER"));
-			}
 			if (roleRepository.findByName("ADMIN").isEmpty()) {
 				roleRepository.save(new Role(null, "ADMIN"));
 			}
+			if (roleRepository.findByName("USER").isEmpty()) {
+				roleRepository.save(new Role(null, "USER"));
+			}
+
 		};
 	}
 
